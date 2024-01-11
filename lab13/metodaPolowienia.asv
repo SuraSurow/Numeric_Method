@@ -1,0 +1,55 @@
+function [minimum_extremum, n] = metodaPolowienia(a, b, f, tolInp)
+   
+    tol = tolInp;
+    iter = 0;
+    syms x ;
+    if (diff(f,) <= 0  || diff(f(b)  ) <= 0)
+        if (f(a) < f(b))
+            minimum_extremum = a;
+            n = 0;
+        elseif (f(b) < (f(a)))
+            minimum_extremum = b;
+            n = 0;
+        else
+            error("funkcja stala ");
+        end
+        return;  % Zakończenie funkcji w przypadku spełnienia warunku
+    end
+
+    while ( ( b - a ) >= tol)
+        xm = (a + b) * 0.5; 
+        x1 = a + 0.25 * (b - a);
+        x2 = b - 0.25 * (b - a);
+
+        if ( ( b - a ) < tol ) || ( abs(diff(f, xm)) < tol)
+            minimum_extremum = xm;
+            n = iter;
+            return;  % Zakończenie funkcji w przypadku spełnienia warunku
+        end
+
+        f_a = f(a);
+        f_b = f(b);
+        f_xm = f(xm);
+
+        if (f_a > f_xm) && (f_b > f_xm)
+            error("Cos nachrzaniłeś, napraw !!!");
+        end
+
+        if (f_b > f_xm) && (f_a > f_xm)
+            error("Cos nachrzaniłeś, napraw !!!");
+        end
+
+        if f_b > f_xm && f_b > f_a
+            b = (b + xm) * 0.5;
+        elseif f_xm > f_a
+            a = (a + xm) * 0.5;
+        elseif f_a > f_xm && f_a > f_b
+            a = (a + xm) * 0.5;
+        end
+
+        iter = iter + 1;
+    end
+
+    minimum_extremum = xm;
+    n = iter;
+end

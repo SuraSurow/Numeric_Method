@@ -21,12 +21,13 @@ function [minimum_extremum, n] = metodaPolowienia(a, b, f, tolInp)
 
         if f_b > f_xm && f_b > f_a
             b = (b + xm) * 0.5;
-        elseif f_xm > f_a
-            a = (a + xm) * 0.5;
-        elseif f_a > f_xm && f_a > f_b
+        end
+        if f_xm > f_a
             a = (a + xm) * 0.5;
         end
-
+        if f_a > f_xm && f_a > f_b
+            a = (a + xm) * 0.5;
+        end
         iter = iter + 1;
     end
 
